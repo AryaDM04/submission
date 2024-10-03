@@ -9,10 +9,10 @@ all_data["order_purchase_timestamp"] = pd.to_datetime(
     all_data["order_purchase_timestamp"]
 )
 
-st.sidebar.image("Logo.png", width=100)
+st.sidebar.image("dashboard/Logo.png", width=100)
 
 
-st.image("Logo.png", width=50)
+st.image("dashboard/Logo.png", width=50)
 st.title("Dashboard Analisis Data Penjualan E-commerce")
 
 st.markdown("## Visualisasi & Analisis Penjelasan")
