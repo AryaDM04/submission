@@ -3,16 +3,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-data_path = "all_data.csv"
+data_path = "https://raw.githubusercontent.com/AryaDM04/submission/refs/heads/main/dashboard/all_data.csv"
 all_data = pd.read_csv(data_path)
 all_data["order_purchase_timestamp"] = pd.to_datetime(
     all_data["order_purchase_timestamp"]
 )
 
-st.sidebar.image("Logo.png", width=100)
+st.sidebar.image("dashboard/Logo.png", width=100)
 
 
-st.image("Logo.png", width=50)
+st.image("dashboard/Logo.png", width=50)
 st.title("Dashboard Analisis Data Penjualan E-commerce")
 
 st.markdown("## Visualisasi & Analisis Penjelasan")
