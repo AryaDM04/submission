@@ -9,12 +9,15 @@ all_data["order_purchase_timestamp"] = pd.to_datetime(
     all_data["order_purchase_timestamp"]
 )
 
-st.sidebar.image("dashboard/Logo.png", width=100)
-
-
-st.image("dashboard/Logo.png", width=50)
+# st.sidebar.image("Logo.png", width=100) #Jika ingin menjalankan di local host silahkan menggunakan ini
+st.sidebar.image(
+    "dashboard/Logo.png", width=100
+)  # Jika ingin mendeploy silahkan menggunakan ini
+# st.image("Logo.png", width=50) #Jika ingin menjalankan di local host silahkan menggunakan ini
+st.image(
+    "dashboard/Logo.png", width=50
+)  # Jika ingin mendeploy silahkan menggunakan ini
 st.title("Dashboard Analisis Data Penjualan E-commerce")
-
 st.markdown("## Visualisasi & Analisis Penjelasan")
 
 st.sidebar.header("Filter Data")
@@ -29,6 +32,7 @@ option = st.sidebar.selectbox(
         "Tren Kepuasan Pelanggan",
         "Total Pengeluaran Tertinggi",
         "10 Barang Paling dan Tidak Laris",
+        "Analisis Pengeluaran Pelanggan di Sao Paulo",
     ),
 )
 
@@ -100,6 +104,7 @@ def display_conclusion(option, data):
     return conclusion
 
 
+# Display selected analysis
 if option == "Tren Kepuasan Pelanggan":
     st.subheader(
         f"Tren Kepuasan Pelanggan Berdasarkan Skor Ulasan ({', '.join(map(str, years_filter))})"
@@ -207,3 +212,58 @@ elif option == "10 Barang Paling dan Tidak Laris":
     plt.tight_layout()
     st.pyplot(fig)
     st.write(display_conclusion(option, data_filtered))
+
+elif option == "Analisis Pengeluaran Pelanggan di Sao Paulo":
+    st.subheader("Analisis Pengeluaran Pelanggan di Sao Paulo")
+    sao_paulo_data = all_data[all_data["customer_city"] == "sao paulo"]
+    spending_per_category = (
+        sao_paulo_data.groupby("product_category_name_english")["payment_value"]
+        .sum()
+        .reset_index()
+    )
+
+    plt.figure(figsize=(35, 15))
+    bar_width = 0.6
+    x = range(len(spending_per_category))
+
+    plt.bar(
+        x,
+        spending_per_category["payment_value"],
+        width=bar_width,
+        color="steelblue",
+        edgecolor="black",
+    )
+    plt.xticks(
+        x,
+        spending_per_category["product_category_name_english"],
+        rotation=45,
+        ha="right",
+        fontsize=15,
+    )
+    plt.title(
+        "Total Pengeluaran Pelanggan di Sao Paulo Berdasarkan Kategori Produk",
+        fontsize=20,
+        fontweight="bold",
+    )
+    plt.xlabel("Kategori Produk", fontsize=16)
+    plt.ylabel("Total Pengeluaran", fontsize=16)
+    plt.grid(axis="y")
+    plt.tight_layout()
+    st.pyplot(plt)
+
+    st.write("**Insight pada tahap analisis lanjutan:**")
+    st.write(
+        "- Variasi Pengeluaran: Terdapat perbedaan signifikan dalam total pengeluaran berdasarkan kategori produk di Sao Paulo."
+    )
+    st.write(
+        "- Kategori Teratas: 'bed_bath_table,' 'health_beauty,' dan 'computers_accessories' menunjukkan pengeluaran tertinggi."
+    )
+    st.write(
+        "- Kategori Rendah: 'music' dan 'security_and_services' memiliki pengeluaran rendah, mengindikasikan kurangnya minat."
+    )
+    st.write(
+        "- Strategi Pemasaran: Data ini dapat membantu perusahaan dalam menyesuaikan strategi pemasaran."
+    )
+    st.write(
+        "- Pengambilan Keputusan: Memahami pola pengeluaran ini mendukung pengambilan keputusan terkait stok, iklan, dan pengembangan produk."
+    )
