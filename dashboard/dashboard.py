@@ -7,10 +7,10 @@ data_path = "https://raw.githubusercontent.com/AryaDM04/submission/refs/heads/ma
 all_data = pd.read_csv(data_path)
 all_data["order_purchase_timestamp"] = pd.to_datetime(all_data["order_purchase_timestamp"])
 
-st.sidebar.image("Logo.png", width=100) #Jika ingin menjalankan di local host silahkan menggunakan ini
-# st.sidebar.image("dashboard/Logo.png", width=100) #Jika ingin mendeploy silahkan menggunakan ini
-st.image("Logo.png", width=50) #Jika ingin menjalankan di local host silahkan menggunakan ini
-# st.image("dashboard/Logo.png", width=50) #Jika ingin mendeploy silahkan menggunakan ini
+# st.sidebar.image("Logo.png", width=100) #Jika ingin menjalankan di local host silahkan menggunakan ini
+st.sidebar.image("dashboard/Logo.png", width=100) #Jika ingin mendeploy silahkan menggunakan ini
+# st.image("Logo.png", width=50) #Jika ingin menjalankan di local host silahkan menggunakan ini
+st.image("dashboard/Logo.png", width=50) #Jika ingin mendeploy silahkan menggunakan ini
 st.title("Dashboard Analisis Data Penjualan E-commerce")
 st.markdown("## Visualisasi & Analisis Penjelasan")
 
